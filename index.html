@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 미니게임 워크숍 - AI로 도트 게임 만들기</title>
+    <style>
+        :root {
+            --primary: #7C4DFF;
+            --primary-dark: #5C35CC;
+            --secondary: #FF5722;
+            --bg-light: #f8f9fa;
+            --text-dark: #212529;
+            --text-light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(124, 77, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-left: 12px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='2' height='2' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .pixel-character {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M2 1h4v1h1v4h-1v1H2V6H1V2h1z'/%3E%3Cpath fill='%23ff5722' d='M3 2h2v1h1v2H5v1H3V5H2V3h1z'/%3E%3C/svg%3E");
+            background-size: contain;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* 워크숍 소개 섹션 */
+        .workshop {
+            background-color: var(--bg-light);
+        }
+
+        .game-preview {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .game-screenshot {
+            width: 320px;
+            height: 240px;
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .pixel-grid {
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='2' height='2' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .pixel-ufo {
+            position: absolute;
+            width: 48px;
+            height: 24px;
+            top: 80px;
+            left: 140px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath fill='%237C4DFF' d='M4 0h8v1h2v1h1v2h-1v1h-2v1H4V6H2V5H1V3h1V2h2z'/%3E%3Cpath fill='%23fff' d='M6 2h4v1h-4z'/%3E%3Cpath fill='%23FF5722' d='M3 6h2v2H3zM11 6h2v2h-2z'/%3E%3C/svg%3E");
+            background-size: contain;
+            animation: hover 2s infinite ease-in-out;
+        }
+
+        @keyframes hover {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .pixel-obstacle {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            bottom: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23FF5722' d='M0 0h8v8H0z'/%3E%3Cpath fill='%23ffb74d' d='M1 1h2v2H1zM5 1h2v2H5zM1 5h2v2H1zM5 5h2v2H5z'/%3E%3C/svg%3E");
+            background-size: contain;
+            animation: slide 4s infinite linear;
+        }
+
+        @keyframes slide {
+            0% { left: 320px; }
+            100% { left: -24px; }
+        }
+
+        .workshop-flow {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .flow-item {
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .flow-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .flow-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* 강사 소개 섹션 */
+        .instructor {
+            background-color: white;
+        }
+
+        .instructor-profile {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 30px 0;
+            justify-content: center;
+        }
+
+        .instructor-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructor-img svg {
+            width: 80%;
+            height: 80%;
+            fill: var(--gray);
+        }
+
+        .instructor-info {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .instructor-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .instructor-title {
+            font-size: 18px;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        /* 리뷰 섹션 */
+        .reviews {
+            background-color: var(--bg-light);
+        }
+
+        .review-cards {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 20px;
+        }
+
+        .review-cards::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-card {
+            flex: 0 0 300px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+        }
+
+        .reviewer-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            margin-right: 15px;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+        }
+
+        .review-game {
+            width: 100%;
+            height: 150px;
+            background-color: #333;
+            border-radius: 6px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 일정 및 신청 섹션 */
+        .schedule {
+            background-color: white;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .schedule-card {
+            padding: 25px;
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary);
+        }
+
+        .schedule-date {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .schedule-time {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .schedule-details {
+            margin-bottom: 15px;
+        }
+
+        .schedule-price {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .signup-form {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%236c757d' d='M0 3l6 6 6-6z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 30px;
+        }
+
+        /* FAQ 섹션 */
+        .faq {
+            background-color: var(--bg-light);
+        }
+
+        .accordion {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+        }
+
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-header {
+            padding: 20px;
+            background-color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            background-color: white;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content-inner {
+            padding: 0 20px 20px;
+        }
+
+        /* CTA 섹션 */
+        .cta {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .cta h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        /* 푸터 섹션 */
+        footer {
+            background-color: #212529;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: var(--secondary);
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding-right: 20px;
+        }
+
+        .footer-heading {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #343a40;
+            padding-top: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .instructor-profile {
+                text-align: center;
+            }
+
+            .form-group {
+                padding: 0 10px;
+            }
+        }
+
+        /* 추가 애니메이션 효과 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Mini<span>Game</span> Workshop</div>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>나만의 미니게임, 직접 만들고 배포해보세요!</h1>
+            <p>도트 그래픽 UFO 점프 게임을 웹에 띄우는 워크숍</p>
+            <div>
+                <a href="https://tumblbug.com/ai-game-workshop" class="btn btn-primary">워크숍 신청하기</a>
+            </div>
+        </div>
+        <!-- 배경 효과로 픽셀 캐릭터 추가 -->
+        <div class="pixel-character" style="top: 20%; left: 15%;"></div>
+        <div class="pixel-character" style="top: 70%; left: 85%; animation-delay: 1s;"></div>
+        <div class="pixel-character" style="top: 40%; left: 75%; animation-delay: 2s;"></div>
+        <div class="pixel-character" style="top: 80%; left: 25%; animation-delay: 3s;"></div>
+    </section>
+
+    <!-- 워크숍 소개 섹션 -->
+    <section class="workshop" id="workshop">
+        <div class="container">
+            <h2 class="section-title text-center">어떤 게임을 만들게 될까요?</h2>
+            
+            <div class="game-preview">
+                <div class="game-screenshot">
+                    <div class="pixel-grid"></div>
+                    <div class="pixel-ufo"></div>
+                    <div class="pixel-obstacle" style="animation-delay: 0s;"></div>
+                    <div class="pixel-obstacle" style="animation-delay: 2s;"></div>
+                </div>
+                <div>
+                    <h3>젤리 UFO 점프 게임</h3>
+                    <p>간단한 도트 그래픽으로 만드는 웹 기반 미니게임입니다.<br>
+                       키보드로 UFO를 조작해 장애물을 피하고 점수를 얻어보세요!</p>
+                    <p>HTML, JavaScript 기초 지식만 있으면 충분히 만들 수 있어요.<br>
+                       게임 제작부터 웹 배포까지 모든 과정을 함께 경험합니다.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title text-center">워크숍에서 이런 것들을 배워요</h2>
+            <div class="workshop-flow">
+                <div class="flow-item">
+                    <div class="flow-icon">🎮</div>
+                    <h3>게임 설계</h3>
+                    <p>게임 규칙과 캐릭터를 설계하고 AI로 도트 그래픽 리소스를 만들어봅니다.</p>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">🎨</div>
+                    <h3>도트맵 구현</h3>
+                    <p>HTML과 CSS로 픽셀아트 스타일의 게임 화면을 구현합니다.</p>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">⌨️</div>
+                    <h3>게임 로직</h3>
+                    <p>JavaScript로 점프, 충돌, 점수 기능을 구현합니다.</p>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-icon">🚀</div>
+                    <h3>웹 배포</h3>
+                    <p>GitHub과 Vercel을 통해 나만의 게임을 인터넷에 공개합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 강사 소개 섹션 -->
+    <section class="instructor" id="instructor">
+        <div class="container">
+            <h2 class="section-title text-center">함께하는 멘토</h2>
+            
+            <div class="instructor-profile">
+                <div class="instructor-img">
+                    <img src="/api/placeholder/180/180" alt="강사 프로필 이미지">
+                </div>
+                <div class="instructor-info">
+                    <h3 class="instructor-name">김개발</h3>
+                    <p class="instructor-title">웹 개발자 & 게임 제작 전문가</p>
+                    <p>10년 차 웹 개발자로 다양한 인터랙티브 웹 프로젝트를 진행해왔습니다.
+                       특히 HTML5 게임 개발에 관심이 많아 여러 미니게임을 제작한 경험이 있습니다.</p>
+                    <p>초보자도 쉽게 이해할 수 있는 친절한 설명으로 누구나 자신만의 게임을 만들 수 있도록 도와드립니다.
+                       코딩이 처음이라도 걱정하지 마세요!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 참가자 후기 섹션 -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="section-title text-center">참가자 후기</h2>
+            
+            <div class="review-cards">
+                <div class="review-card">
+                    <div class="review-game">
+                        <div class="pixel-grid"></div>
+                        <!-- 간단한 게임 스크린샷 -->
+                        <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; font-size: 12px;">
+                            우주선 탈출 게임
+                        </div>
+                    </div>
+                    <p class="review-text">"코딩을 처음 해봤는데도 실제로 게임이 만들어지는걸 보고 너무 신기했어요! 게임 개발이 이렇게 재미있는 줄 몰랐습니다."</p>
+                    <div class="reviewer">
+                        <div class="reviewer-img"></div>
+                        <div>
+                            <div class="reviewer-name">박지민</div>
+                            <div>대학생</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-game">
+                        <div class="pixel-grid"></div>
+                        <!-- 간단한 게임 스크린샷 -->
+                        <div style="position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; color: white; font-size: 12px;">
+                            도트 달리기 게임
+                        </div>
+                    </div>
+                    <p class="review-text">"강사님의 설명이 정말 쉽고 친절해서 코딩 지식이 거의 없던 제가 직접 게임을 만들 수 있었어요. 친구들에게 자랑했더니 다들 놀라워했습니다!"</p>
+                    <div class="reviewer">
+                        <div class="reviewer-img">
