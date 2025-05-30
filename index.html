@@ -893,15 +893,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             const reviewCardsWrapper = document.querySelector('.review-cards-wrapper');
             const reviewCards = document.querySelector('.review-cards');
-            let scrollAmount = 0;
+            let scrollAmount = reviewCards.scrollWidth - reviewCardsWrapper.offsetWidth; // 초기 스크롤 위치를 오른쪽 끝으로 설정
             const scrollSpeed = 1;
 
             function autoScroll() {
-                scrollAmount += scrollSpeed;
+                scrollAmount -= scrollSpeed; // 스크롤 방향을 오른쪽에서 왼쪽으로 변경
                 reviewCardsWrapper.scrollLeft = scrollAmount;
 
-                if (scrollAmount >= reviewCards.scrollWidth - reviewCardsWrapper.offsetWidth) {
-                    scrollAmount = 0;
+                // 왼쪽 끝까지 스크롤되면 오른쪽 끝으로 되돌리기
+                if (scrollAmount <= 0) {
+                    scrollAmount = reviewCards.scrollWidth - reviewCardsWrapper.offsetWidth;
                 }
 
                 requestAnimationFrame(autoScroll);
@@ -915,6 +916,7 @@
                 requestAnimationFrame(autoScroll);
             });
 
+            // 초기 자동 스크롤 시작
             requestAnimationFrame(autoScroll);
         });
     </script>
