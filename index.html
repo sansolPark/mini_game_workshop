@@ -12,6 +12,74 @@
     <meta property="og:image" content="og_image.png">
     <meta property="og:url" content="https://sansolpark.github.io/mini_game_workshop/"> <meta property="og:type" content="website">
     <style>
+
+        .affiliate-banner-section {
+  background: linear-gradient(90deg, #ffc107 0%, #ff7043 100%);
+  padding: 28px 0 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.affiliate-banner-container {
+  max-width: 900px;
+  width: 90vw;
+  margin: 0 auto;
+}
+.gumroad-affiliate-banner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 30px;
+  box-shadow: 0 2px 12px rgba(50,50,50,0.07);
+  transition: box-shadow 0.2s;
+}
+.gumroad-affiliate-banner:hover {
+  box-shadow: 0 6px 24px rgba(50,50,50,0.17);
+}
+.gumroad-banner-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.gumroad-banner-text {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  font-size: 1rem;
+}
+.gumroad-banner-text strong {
+  font-size: 1.15em;
+  color: #ff5722;
+  margin-top: 4px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .gumroad-affiliate-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 16px;
+  }
+  .gumroad-banner-img {
+    width: 44px;
+    height: 44px;
+  }
+  .affiliate-banner-container {
+    width: 98vw;
+    min-width: 0;
+  }
+  .gumroad-banner-text {
+    font-size: 0.97rem;
+  }
+}
+        
         :root {
             --primary: #7C4DFF;
             --primary-dark: #5C35CC;
@@ -711,7 +779,19 @@
         <div class="pixel-character" style="top: 40%; left: 75%; animation-delay: 2s;"></div>
         <div class="pixel-character" style="top: 80%; left: 25%; animation-delay: 3s;"></div>
     </section>
-
+<!-- Gumroad 어필리에이트 배너 시작 -->
+<section class="affiliate-banner-section">
+  <div class="affiliate-banner-container">
+    <a href="YOUR_AFFILIATE_LINK" target="_blank" rel="noopener" class="gumroad-affiliate-banner">
+      <img src="https://assets.gumroad.com/logo-white.svg" alt="Gumroad" class="gumroad-banner-img" />
+      <div class="gumroad-banner-text">
+        <span>Gumroad에서 다양한 디지털 상품을 만나보세요!</span>
+        <strong>최대 85% 수익 분배, 지금 어필리에이트로 시작하기 →</strong>
+      </div>
+    </a>
+  </div>
+</section>
+<!-- Gumroad 어필리에이트 배너 끝 -->
     <!-- 워크숍 소개 섹션 -->
     <section class="workshop" id="workshop">
         <div class="container">
