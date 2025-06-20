@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 실제 서비스 메인 페이지 -->
+  <url>
+    <loc>https://sansolpark.github.io/mini_game_workshop/</loc>
+    <priority>1.0</priority>
+  </url>
+  <!-- index.html 소스 파일(GitHub) -->
+  <url>
+    <loc>https://github.com/sansolPark/mini_game_workshop/blob/main/index.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <!-- 주요 섹션 링크 -->
+  <url>
+    <loc>https://sansolpark.github.io/mini_game_workshop/#home</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sansolpark.github.io/mini_game_workshop/#workshop</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sansolpark.github.io/mini_game_workshop/#instructor</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sansolpark.github.io/mini_game_workshop/#reviews</loc>
+    <priority>0.7</priority>
+  </url>
+  <!-- 미니게임 외부/별도 링크 -->
+  <url>
+    <loc>https://ufo-game-orcin.vercel.app/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sansolpark.github.io/ufo_game_meteo/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sansolpark.github.io/Jellyball_game/</loc>
+    <priority>0.6</priority>
+  </url>
+  <!-- 워크숍 신청 외부 링크 -->
+  <url>
+    <loc>https://tumblbug.com/ai-game-workshop</loc>
+    <priority>0.5</priority>
+  </url>
+  <!-- Gumroad 배너 외부 링크 -->
+  <url>
+    <loc>https://gumroad.com/a/10257555/kwXIG</loc>
+    <priority>0.5</priority>
+  </url>
+</urlset>
