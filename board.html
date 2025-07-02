@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>자유 게시판 | MiniGame Workshop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #7C4DFF;
+      --secondary: #FF5722;
+      --bg-light: #f8f9fa;
+      --gray: #6c757d;
+    }
+    body {
+      background: var(--bg-light);
+      margin: 0;
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      color: #222;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto 0 auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 14px rgba(80,80,80,0.08);
+      padding: 30px 16px 24px 16px;
+    }
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    input, textarea {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 0;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: var(--secondary);
+    }
+    .posts-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .post-item {
+      border-bottom: 1px solid #eee;
+      padding: 18px 0 10px 0;
+    }
+    .post-item:last-child {
+      border-bottom: none;
+    }
+    .post-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+      word-break: break-all;
+    }
+    .post-meta {
+      font-size: 0.92rem;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .post-content {
+      font-size: 1rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    @media (max-width: 700px) {
+      .container {
+        max-width: 99vw;
+        margin: 10px 0;
+        padding: 12px 2vw 20px 2vw;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      input, textarea, button {
+        font-size: 1rem;
+      }
+      .post-title { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>자유 게시판</h1>
+    <form id="postForm" autocomplete="off">
+      <input type="text" id="name" placeholder="이름" maxlength="12" required>
+      <input type="text" id="title" placeholder="제목" maxlength="50" required>
+      <textarea id="content" placeholder="내용을 입력하세요" maxlength="1000" required></textarea>
+      <button type="submit">글 작성</button>
+    </form>
+    <ul class="posts-list" id="postsList"></ul>
+  </div>
+  <script>
+    // 게시글 가져오기
+    function getPosts() {
+      return JSON.parse(localStorage.getItem('boardPosts') || '[]');
+    }
+    // 게시글 저장
+    function savePosts(posts) {
+      localStorage.setItem('boardPosts', JSON.stringify(posts));
+    }
+    // 게시글 출력
+    function renderPosts() {
+      const posts = getPosts();
+      const postsList = document.getElementById('postsList');
+      postsList.innerHTML = '';
+      if (posts.length === 0) {
+        postsList.innerHTML = '<li class="post-item" style="color:var(--gray);text-align:center;">아직 작성된 글이 없습니다.</li>';
+        return;
+      }
+      posts.reverse().forEach(function(post) {
+        const li = document.createElement('li');
+        li.className = 'post-item';
+        li.innerHTML = `
+          <div class="post-title">${escapeHTML(post.title)}</div>
+          <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
+          <div class="post-content">${escapeHTML(post.content)}</div>
+        `;
+        postsList.appendChild(li);
+      });
+    }
+    // HTML 이스케이프(간단)
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, function(m) {
+        return ({
+          '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+        })[m];
+      });
+    }
+    // 폼 제출 이벤트
+    document.getElementById('postForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim() || '익명';
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      if (!title || !content) return;
+      const now = new Date();
+      const date = now.getFullYear() + '-' +
+                   ('0'+(now.getMonth()+1)).slice(-2) + '-' +
+                   ('0'+now.getDate()).slice(-2) + ' ' +
+                   ('0'+now.getHours()).slice(-2) + ':' +
+                   ('0'+now.getMinutes()).slice(-2);
+      const posts = getPosts();
+      posts.push({ name, title, content, date });
+      savePosts(posts);
+      renderPosts();
+      this.reset();
+    });
+    // 최초 렌더링
+    renderPosts();
+  </script>
+</body>
+</html>
