@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>개발일지 | MiniGame Workshop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #7C4DFF;
+      --secondary: #FF5722;
+      --bg-light: #f8f9fa;
+      --gray: #6c757d;
+    }
+    body {
+      margin: 0;
+      background: var(--bg-light);
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      color: #232323;
+    }
+    .container {
+      max-width: 740px;
+      margin: 40px auto 0 auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 14px rgba(80,80,80,0.07);
+      padding: 36px 18px 30px 18px;
+    }
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 32px;
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
+    .devlog-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .devlog-item {
+      border-bottom: 1px solid #eee;
+      padding: 22px 0 14px 0;
+      margin-bottom: 0;
+    }
+    .devlog-item:last-child {
+      border-bottom: none;
+    }
+    .devlog-title {
+      font-weight: bold;
+      font-size: 1.22rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+      word-break: break-all;
+    }
+    .devlog-date {
+      font-size: 0.95rem;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+    .devlog-content {
+      font-size: 1.06rem;
+      white-space: pre-line;
+      word-break: break-all;
+      margin-bottom: 0;
+    }
+    @media (max-width: 800px) {
+      .container {
+        max-width: 99vw;
+        margin: 6vw 0 0 0;
+        padding: 18px 3vw 20px 3vw;
+      }
+      h1 {
+        font-size: 1.35rem;
+      }
+      .devlog-title { font-size: 1.05rem; }
+      .devlog-content { font-size: 0.99rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>개발일지</h1>
+    <ul class="devlog-list">
+
+      <!-- 샘플 글 1 -->
+      <li class="devlog-item">
+        <div class="devlog-title">미니게임 워크숍 프로젝트 시작!</div>
+        <div class="devlog-date">2025-07-02</div>
+        <div class="devlog-content">
+오늘부터 미니게임 워크숍 프로젝트를 본격적으로 시작했다.
+기획을 정리하고, 가장 먼저 랜딩 페이지의 구조와 스타일을 잡았다.
+HTML과 CSS만으로도 충분히 예쁘게 만들 수 있다는 걸 다시 느꼈다!
+        </div>
+      </li>
+
+      <!-- 샘플 글 2 -->
+      <li class="devlog-item">
+        <div class="devlog-title">UFO 점프 게임 기본 로직 완성</div>
+        <div class="devlog-date">2025-07-01</div>
+        <div class="devlog-content">
+UFO 캐릭터가 장애물을 피해서 점프하는 기본 로직을 완성했다.
+키보드 입력 처리와 충돌 판정, 점수 시스템까지 기본적인 부분을 구현!
+다음 개발일지에는 도트 그래픽 작업 과정을 기록할 예정이다.
+        </div>
+      </li>
+
+      <!-- 여기에 새로운 글을 위로 추가하세요 -->
+
+    </ul>
+  </div>
+</body>
+</html>
