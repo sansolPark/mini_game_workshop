@@ -179,15 +179,16 @@ function renderPosts() {
 
     const li = document.createElement('li');
     li.className = 'post-item';
-    li.innerHTML = `
-      <div class="post-title">${escapeHTML(post.title)}</div>
-      <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
-      <div class="post-content">${escapeHTML(post.content)}</div>
-      <button class="like-btn" data-postkey="${postKey}" style="background:none;border:none;cursor:pointer;font-size:1.2em;">
-        <span class="like-heart" style="color:#FF5722;">❤️</span> 
-        <span class="like-count">${likeCount}</span>
-      </button>
-    `;
+  li.innerHTML = `
+  <div class="post-title">${escapeHTML(post.title)}</div>
+  <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
+  <div class="post-content">${escapeHTML(post.content)}</div>
+  <button class="like-btn" data-postkey="${postKey}" style="background:none;border:none;cursor:pointer;font-size:1.2em;">
+    <span class="like-heart" style="color:#FF5722;">❤️</span> 
+    <span style="margin-left:2px;font-weight:500;">좋아요</span>
+    <span class="like-count" style="margin-left:5px;">${likeCount}</span>
+  </button>
+`;
     postsList.appendChild(li);
   });
 
