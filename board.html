@@ -11,6 +11,22 @@
       --bg-light: #f8f9fa;
       --gray: #6c757d;
     }
+
+    .like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+  padding: 6px 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+.like-btn:active .like-heart {
+  transform: scale(1.2);
+  transition: transform 0.1s;
+}
+    
     body {
       background: var(--bg-light);
       margin: 0;
@@ -126,6 +142,8 @@
     <ul class="posts-list" id="postsList"></ul>
   </div>
   <script>
+   
+    
     // 게시글 가져오기
     function getPosts() {
       return JSON.parse(localStorage.getItem('boardPosts') || '[]');
@@ -134,26 +152,54 @@
     function savePosts(posts) {
       localStorage.setItem('boardPosts', JSON.stringify(posts));
     }
+
+    function getLikeCount(postKey) {
+  const likes = JSON.parse(localStorage.getItem('boardLikes') || '{}');
+  return likes[postKey] || 0;
+}
+
+function addLike(postKey) {
+  const likes = JSON.parse(localStorage.getItem('boardLikes') || '{}');
+  likes[postKey] = (likes[postKey] || 0) + 1;
+  localStorage.setItem('boardLikes', JSON.stringify(likes));
+}
     // 게시글 출력
-    function renderPosts() {
-      const posts = getPosts();
-      const postsList = document.getElementById('postsList');
-      postsList.innerHTML = '';
-      if (posts.length === 0) {
-        postsList.innerHTML = '<li class="post-item" style="color:var(--gray);text-align:center;">아직 작성된 글이 없습니다.</li>';
-        return;
-      }
-      posts.reverse().forEach(function(post) {
-        const li = document.createElement('li');
-        li.className = 'post-item';
-        li.innerHTML = `
-          <div class="post-title">${escapeHTML(post.title)}</div>
-          <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
-          <div class="post-content">${escapeHTML(post.content)}</div>
-        `;
-        postsList.appendChild(li);
-      });
-    }
+function renderPosts() {
+  const posts = getPosts();
+  const postsList = document.getElementById('postsList');
+  postsList.innerHTML = '';
+  if (posts.length === 0) {
+    postsList.innerHTML = '<li class="post-item" style="color:var(--gray);text-align:center;">아직 작성된 글이 없습니다.</li>';
+    return;
+  }
+  posts.reverse().forEach(function(post, idx) {
+    // 각 포스트의 인덱스를 키로 사용
+    const postKey = posts.length - 1 - idx; // 원래 데이터 인덱스
+    const likeCount = getLikeCount(postKey);
+
+    const li = document.createElement('li');
+    li.className = 'post-item';
+    li.innerHTML = `
+      <div class="post-title">${escapeHTML(post.title)}</div>
+      <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
+      <div class="post-content">${escapeHTML(post.content)}</div>
+      <button class="like-btn" data-postkey="${postKey}" style="background:none;border:none;cursor:pointer;font-size:1.2em;">
+        <span class="like-heart" style="color:#FF5722;">❤️</span> 
+        <span class="like-count">${likeCount}</span>
+      </button>
+    `;
+    postsList.appendChild(li);
+  });
+
+  // 좋아요 버튼 이벤트 연결
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const postKey = this.getAttribute('data-postkey');
+      addLike(postKey);
+      renderPosts();
+    });
+  });
+}
     // HTML 이스케이프(간단)
     function escapeHTML(str) {
       return str.replace(/[&<>"']/g, function(m) {
