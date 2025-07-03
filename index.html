@@ -16,6 +16,9 @@
     <meta property="og:url" content="https://sansolpark.github.io/mini_game_workshop/"> <meta property="og:type" content="website">
     <style>
 
+
+        
+
         .affiliate-banner-section {
   background: linear-gradient(90deg, #ffc107 0%, #ff7043 100%);
   padding: 28px 0 24px 0;
@@ -762,16 +765,27 @@
 <body>
     <!-- 헤더 영역 -->
     <header>
+
+
         <div class="container header-container">
             <div class="logo">Mini<span>Game</span> Workshop</div>
-              <!-- 네비게이션 메뉴 추가 시작 -->
-        <nav>
-            <ul>
-                <li><a href="devlog.html">게임개발일지</a></li>
-                <li><a href="board.html">게시판</a></li>
-            </ul>
-        </nav>
-        <!-- 네비게이션 메뉴 추가 끝 -->
+
+
+
+        <!-- 햄버거 메뉴 아이콘 -->
+<div id="hamburger-menu" style="position: fixed; top: 16px; right: 16px; z-index: 1001; cursor: pointer; width: 36px; height: 36px;">
+  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+</div>
+
+<!-- 팝업 메뉴 -->
+<div id="popup-menu" style="display: none; position: fixed; top: 60px; right: 16px; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1002;">
+  <a href="board.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">게시판</a>
+  <a href="devlog.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333;">개발일지</a>
+</div>
+            
+       
         </div>
     </header>
 
@@ -1001,6 +1015,24 @@
     </style>
 
     <script>
+
+const hamburger = document.getElementById('hamburger-menu');
+const popupMenu = document.getElementById('popup-menu');
+
+hamburger.addEventListener('click', function(e) {
+  e.stopPropagation();
+  popupMenu.style.display = popupMenu.style.display === 'block' ? 'none' : 'block';
+});
+
+document.addEventListener('click', function(e) {
+  if (popupMenu.style.display === 'block') {
+    popupMenu.style.display = 'none';
+  }
+});
+
+popupMenu.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
         document.addEventListener('DOMContentLoaded', function() {
             const reviewCardsWrapper = document.querySelector('.review-cards-wrapper');
             const reviewCards = document.querySelector('.review-cards');
