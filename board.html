@@ -172,23 +172,23 @@ function renderPosts() {
     postsList.innerHTML = '<li class="post-item" style="color:var(--gray);text-align:center;">아직 작성된 글이 없습니다.</li>';
     return;
   }
-  posts.reverse().forEach(function(post, idx) {
-    // 각 포스트의 인덱스를 키로 사용
-    const postKey = posts.length - 1 - idx; // 원래 데이터 인덱스
+  // slice()로 복사, reverse()로 뒤집기, idx는 실제 게시글의 키로 사용
+  posts.slice().reverse().forEach(function(post, idx) {
+    const postKey = posts.length - 1 - idx; // 글이 추가된 순서대로 고유 번호
     const likeCount = getLikeCount(postKey);
 
     const li = document.createElement('li');
     li.className = 'post-item';
-  li.innerHTML = `
-  <div class="post-title">${escapeHTML(post.title)}</div>
-  <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
-  <div class="post-content">${escapeHTML(post.content)}</div>
-  <button class="like-btn" data-postkey="${postKey}" style="background:none;border:none;cursor:pointer;font-size:1.2em;">
-    <span class="like-heart" style="color:#FF5722;">❤️</span> 
-    <span style="margin-left:2px;font-weight:500;">좋아요</span>
-    <span class="like-count" style="margin-left:5px;">${likeCount}</span>
-  </button>
-`;
+    li.innerHTML = `
+      <div class="post-title">${escapeHTML(post.title)}</div>
+      <div class="post-meta">${escapeHTML(post.name)} · ${post.date}</div>
+      <div class="post-content">${escapeHTML(post.content)}</div>
+      <button class="like-btn" data-postkey="${postKey}" style="background:none;border:none;cursor:pointer;font-size:1.2em;">
+        <span class="like-heart" style="color:#FF5722;">❤️</span>
+        <span style="margin-left:4px;font-weight:500;">좋아요</span>
+        <span class="like-count" style="margin-left:6px;">${likeCount}</span>
+      </button>
+    `;
     postsList.appendChild(li);
   });
 
