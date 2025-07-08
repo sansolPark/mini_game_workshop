@@ -1,1 +1,146 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>도트 오락실</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #191970 0%, #2d004d 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-family: 'Press Start 2P', 'Pretendard', 'Noto Sans KR', sans-serif;
+    }
+    .arcade-title {
+      color: #fff600;
+      font-size: 2.5rem;
+      text-shadow: 0 2px 8px #222, 0 0 16px #ff0080;
+      margin-top: 40px;
+      margin-bottom: 14px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .arcade-cabinet {
+      background: #222;
+      border: 10px solid #ff0080;
+      border-radius: 24px 24px 48px 48px/40px 40px 80px 80px;
+      width: 420px;
+      margin: 0 auto;
+      box-shadow: 0 8px 48px #000a, 0 1.5px 0 #fff inset;
+      position: relative;
+      padding-bottom: 36px;
+      margin-bottom: 40px;
+    }
+    .arcade-screen {
+      width: 320px;
+      height: 220px;
+      background: #222c;
+      border: 6px solid #fff;
+      border-radius: 12px;
+      margin: 36px auto 0 auto;
+      box-shadow: 0 4px 32px #00ffff99, 0 0 12px #fff8;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+    .arcade-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+      margin-top: 30px;
+    }
+    .arcade-btn {
+      width: 38px;
+      height: 38px;
+      background: radial-gradient(circle, #ff5722 60%, #c62828 100%);
+      border-radius: 50%;
+      margin: 0 4px;
+      box-shadow: 0 2px 8px #000a, 0 2px 0 #fff8 inset;
+      border: 3px solid #fff;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .arcade-btn.blue {
+      background: radial-gradient(circle, #00b0ff 60%, #01579b 100%);
+    }
+    .arcade-btn.yellow {
+      background: radial-gradient(circle, #ffff00 60%, #c6b800 100%);
+    }
+    /* 도트 아트 느낌 데코 */
+    .pixel-border {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .pixel-border svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    /* 오락실 배경 네온 조명 효과 */
+    .arcade-neon {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 60%, #00ffff33 0%, #191970 70%);
+      mix-blend-mode: screen;
+    }
+  </style>
+  <!-- 픽셀 폰트 사용 (구글 폰트) -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="arcade-neon"></div>
+  <div class="arcade-title">🕹️ 오락실 Arcade 🕹️</div>
+  <div class="arcade-cabinet">
+    <div class="arcade-screen" id="arcade-screen">
+      <!-- 미니게임 iframe이 여기에 표시됩니다 -->
+      <iframe id="game-iframe"
+        src=""
+        width="100%" height="100%" frameborder="0"
+        style="background:#111; display:block;"
+        allow="autoplay; fullscreen"></iframe>
+    </div>
+    <div class="arcade-buttons">
+      <div class="arcade-btn" onclick="reloadGame()" title="다른 게임!"></div>
+      <div class="arcade-btn blue"></div>
+      <div class="arcade-btn yellow"></div>
+    </div>
+    <!-- 도트 스타일 아트 (장식용) -->
+    <div class="pixel-border">
+      <svg viewBox="0 0 420 350">
+        <rect x="8" y="8" width="404" height="334" fill="none" stroke="#fff600" stroke-width="7" style="filter:drop-shadow(0 0 5px #ff0080);"/>
+        <rect x="24" y="28" width="372" height="290" fill="none" stroke="#00f0ff" stroke-width="3" style="filter:drop-shadow(0 0 4px #00e5ff);"/>
+      </svg>
+    </div>
+  </div>
+  <!-- 게임 랜덤 선택 및 iframe 제어 스크립트 -->
+  <script>
+    // 샘플 미니게임 URL 배열 (나중에 바꿀 수 있음)
+    const gameUrls = [
+      "https://sansolpark.github.io/Jellyball_game/",
+      "https://ufo-game-orcin.vercel.app/",
+      "https://sansolpark.github.io/ufo_game_meteo/"
+    ];
+    function pickRandomGame() {
+      const idx = Math.floor(Math.random() * gameUrls.length);
+      return gameUrls[idx];
+    }
+    function loadRandomGame() {
+      document.getElementById('game-iframe').src = pickRandomGame();
+    }
+    function reloadGame() {
+      loadRandomGame();
+    }
+    // 페이지 로드시 자동으로 랜덤 미니게임 표시
+    window.onload = loadRandomGame;
+  </script>
+</body>
+</html>
