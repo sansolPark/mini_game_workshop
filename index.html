@@ -1073,23 +1073,6 @@ popupMenu.addEventListener('click', function(e) {
     <!-- 툴팁 요소 및 스크립트 추가 (body 끝나기 전에!) -->
     <div id="play-tooltip" style="display: none; position: absolute; background: #222; color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 6px; pointer-events: none; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">Don't forget to play</div>
     <script>
-    // 햄버거 메뉴 토글 기능 (버그 수정: 메뉴가 열릴 때 외부 클릭 시 닫히도록 개선)
-    (function() {
-        const hamburger = document.getElementById('hamburger-menu');
-        const popupMenu = document.getElementById('popup-menu');
-        if (hamburger && popupMenu) {
-            hamburger.addEventListener('click', function(e) {
-                popupMenu.style.display = (popupMenu.style.display === 'block') ? 'none' : 'block';
-                e.stopPropagation();
-            });
-            // 외부 클릭 시 팝업 닫기
-            document.addEventListener('click', function(e) {
-                if (!popupMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                    popupMenu.style.display = 'none';
-                }
-            });
-        }
-    })();
 
     // play 버튼 툴팁 기능 (버그 수정: tooltip 위치 오차 개선 및 모바일 터치 대응)
     (function() {
