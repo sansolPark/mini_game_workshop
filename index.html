@@ -140,17 +140,21 @@
             transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(124, 77, 255, 0.3);
-        }
+      .btn-primary {
+    background: linear-gradient(90deg, #ffc107 0%, #ff7043 100%);
+    color: #fff;
+    border: none;
+    font-size: 28px;         /* 더 큰 글씨 */
+    padding: 20px 48px;      /* 더 큰 버튼 */
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(255,112,67,0.18);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+    background: linear-gradient(90deg, #ff7043 0%, #ffc107 100%);
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(255,112,67,0.27);
+}
 
         .btn-secondary {
             background-color: white;
