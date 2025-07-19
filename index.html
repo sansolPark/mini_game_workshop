@@ -796,7 +796,7 @@
             <h1>나만의 미니게임, <br>직접 만들고 <br>배포해보세요!</h1>
             <p>도트 그래픽 UFO 점프 게임을 웹에 띄우는 워크숍</p>
             <div>
-                <a href="arcade.html" class="btn btn-primary">play</a>
+              <a href="arcade.html" class="btn btn-primary" id="play-btn">play</a>
             </div>
         </div>
         <!-- 배경 효과로 픽셀 캐릭터 추가 -->
@@ -1074,3 +1074,31 @@ popupMenu.addEventListener('click', function(e) {
     </a>
   </div>
 </section>
+<!-- 툴팁 요소 및 스크립트 추가 (body 끝나기 전에!) -->
+<div id="play-tooltip" style="display: none; position: absolute; background: #222; color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 6px; pointer-events: none; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">Don't forget to play</div>
+<script>
+  const playBtn = document.getElementById('play-btn');
+  const tooltip = document.getElementById('play-tooltip');
+
+  if (playBtn && tooltip) {
+    playBtn.addEventListener('mouseenter', function(e) {
+      tooltip.style.display = 'block';
+      const rect = playBtn.getBoundingClientRect();
+      tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
+      tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
+    });
+
+    playBtn.addEventListener('mousemove', function(e) {
+      const rect = playBtn.getBoundingClientRect();
+      tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
+      tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
+    });
+
+    playBtn.addEventListener('mouseleave', function() {
+      tooltip.style.display = 'none';
+    });
+  }
+</script>
+</body>
+</html>
+
