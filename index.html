@@ -763,30 +763,21 @@
     </style>
 </head>
 <body>
-    <!-- 헤더 영역 -->
+     <!-- 헤더 영역 -->
     <header>
-
-
         <div class="container header-container">
             <div class="logo">Mini<span>Game</span> Workshop</div>
-
-
-
-        <!-- 햄버거 메뉴 아이콘 -->
-<div id="hamburger-menu" style="position: fixed; top: 16px; right: 16px; z-index: 1001; cursor: pointer; width: 36px; height: 36px;">
-  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
-  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
-  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
-</div>
-
-<!-- 팝업 메뉴 -->
-<div id="popup-menu" style="display: none; position: fixed; top: 60px; right: 16px; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1002;">
-
-  <a href="board.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">게시판</a>
-  <a href="devlog.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333;">개발일지</a>
-</div>
-            
-       
+            <!-- 햄버거 메뉴 아이콘 -->
+            <div id="hamburger-menu" style="position: fixed; top: 16px; right: 16px; z-index: 1001; cursor: pointer; width: 36px; height: 36px;">
+                <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+                <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+                <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+            </div>
+            <!-- 팝업 메뉴 -->
+            <div id="popup-menu" style="display: none; position: fixed; top: 60px; right: 16px; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1002;">
+                <a href="board.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">게시판</a>
+                <a href="devlog.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333;">개발일지</a>
+            </div>
         </div>
     </header>
 
@@ -1074,31 +1065,56 @@ popupMenu.addEventListener('click', function(e) {
     </a>
   </div>
 </section>
-<!-- 툴팁 요소 및 스크립트 추가 (body 끝나기 전에!) -->
-<div id="play-tooltip" style="display: none; position: absolute; background: #222; color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 6px; pointer-events: none; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">Don't forget to play</div>
-<script>
-  const playBtn = document.getElementById('play-btn');
-  const tooltip = document.getElementById('play-tooltip');
 
-  if (playBtn && tooltip) {
-    playBtn.addEventListener('mouseenter', function(e) {
-      tooltip.style.display = 'block';
-      const rect = playBtn.getBoundingClientRect();
-      tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
-      tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
-    });
+    <!-- 툴팁 요소 및 스크립트 추가 (body 끝나기 전에!) -->
+    <div id="play-tooltip" style="display: none; position: absolute; background: #222; color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 6px; pointer-events: none; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">Don't forget to play</div>
+    <script>
+    // 햄버거 메뉴 토글 기능 (버그 수정: 메뉴가 열릴 때 외부 클릭 시 닫히도록 개선)
+    (function() {
+        const hamburger = document.getElementById('hamburger-menu');
+        const popupMenu = document.getElementById('popup-menu');
+        if (hamburger && popupMenu) {
+            hamburger.addEventListener('click', function(e) {
+                popupMenu.style.display = (popupMenu.style.display === 'block') ? 'none' : 'block';
+                e.stopPropagation();
+            });
+            // 외부 클릭 시 팝업 닫기
+            document.addEventListener('click', function(e) {
+                if (!popupMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    popupMenu.style.display = 'none';
+                }
+            });
+        }
+    })();
 
-    playBtn.addEventListener('mousemove', function(e) {
-      const rect = playBtn.getBoundingClientRect();
-      tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
-      tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
-    });
+    // play 버튼 툴팁 기능 (버그 수정: tooltip 위치 오차 개선 및 모바일 터치 대응)
+    (function() {
+        const playBtn = document.getElementById('play-btn');
+        const tooltip = document.getElementById('play-tooltip');
 
-    playBtn.addEventListener('mouseleave', function() {
-      tooltip.style.display = 'none';
-    });
-  }
-</script>
+        function showTooltip() {
+            tooltip.style.display = 'block';
+            const rect = playBtn.getBoundingClientRect();
+            // 툴팁이 가운데 위에 뜨도록 조정
+            tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
+            tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
+        }
+
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        if (playBtn && tooltip) {
+            playBtn.addEventListener('mouseenter', showTooltip);
+            playBtn.addEventListener('mousemove', showTooltip);
+            playBtn.addEventListener('mouseleave', hideTooltip);
+            // 모바일 터치 대응
+            playBtn.addEventListener('touchstart', function(e) {
+                showTooltip();
+                setTimeout(hideTooltip, 2000);
+            });
+        }
+    })();
+    </script>
 </body>
 </html>
-
