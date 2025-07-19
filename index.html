@@ -13,10 +13,79 @@
     <meta property="og:title" content="나만의 미니게임 워크숍 - AI로 도트 게임 만들기">
     <meta property="og:description" content="AI로 도트 그래픽을 만들고, 나만의 미니 게임을 웹에 배포하는 워크숍에 참여하세요!">
     <meta property="og:image" content="og_image.png">
-    <meta property="og:url" content="https://sansolpark.github.io/mini_game_workshop/"> 
-    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sansolpark.github.io/mini_game_workshop/"> <meta property="og:type" content="website">
     <style>
-        /* ======== 공통 스타일 ======== */
+
+
+        
+
+        .affiliate-banner-section {
+  background: linear-gradient(90deg, #ffc107 0%, #ff7043 100%);
+  padding: 28px 0 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.affiliate-banner-container {
+  max-width: 900px;
+  width: 90vw;
+  margin: 0 auto;
+}
+.gumroad-affiliate-banner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px 30px;
+  box-shadow: 0 2px 12px rgba(50,50,50,0.07);
+  transition: box-shadow 0.2s;
+}
+.gumroad-affiliate-banner:hover {
+  box-shadow: 0 6px 24px rgba(50,50,50,0.17);
+}
+.gumroad-banner-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.gumroad-banner-text {
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  font-size: 1rem;
+}
+.gumroad-banner-text strong {
+  font-size: 1.15em;
+  color: #ff5722;
+  margin-top: 4px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 600px) {
+  .gumroad-affiliate-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 16px;
+  }
+  .gumroad-banner-img {
+    width: 44px;
+    height: 44px;
+  }
+  .affiliate-banner-container {
+    width: 98vw;
+    min-width: 0;
+  }
+  .gumroad-banner-text {
+    font-size: 0.97rem;
+  }
+}
+        
         :root {
             --primary: #7C4DFF;
             --primary-dark: #5C35CC;
@@ -26,33 +95,40 @@
             --text-light: #f8f9fa;
             --gray: #6c757d;
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
         }
+
         body {
             line-height: 1.6;
             color: var(--text-dark);
             overflow-x: hidden;
         }
+
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
         section {
             padding: 80px 0;
         }
+
         h1, h2, h3 {
             margin-bottom: 20px;
             line-height: 1.3;
         }
+
         p {
             margin-bottom: 15px;
         }
+
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -63,35 +139,42 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
+
         .btn-primary {
             background-color: var(--primary);
             color: white;
             border: none;
         }
+
         .btn-primary:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(124, 77, 255, 0.3);
         }
+
         .btn-secondary {
             background-color: white;
             color: var(--primary);
             border: 2px solid var(--primary);
             margin-left: 12px;
         }
+
         .btn-secondary:hover {
             background-color: var(--primary);
             color: white;
         }
+
         .text-center {
             text-align: center;
         }
+
         .section-title {
             font-size: 32px;
             margin-bottom: 40px;
             position: relative;
             padding-bottom: 15px;
         }
+
         .section-title::after {
             content: '';
             position: absolute;
@@ -103,7 +186,8 @@
             background-color: var(--primary);
             border-radius: 2px;
         }
-        /* ======== 헤더 ======== */
+
+        /* 헤더 스타일 */
         header {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -112,37 +196,45 @@
             top: 0;
             z-index: 1000;
         }
+
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
         }
+
         .logo {
             font-size: 24px;
             font-weight: 700;
             color: var(--primary);
         }
+
         .logo span {
             color: var(--secondary);
         }
+
         nav ul {
             display: flex;
             list-style: none;
         }
+
         nav ul li {
             margin-left: 30px;
         }
+
         nav ul li a {
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
             transition: color 0.3s ease;
         }
+
         nav ul li a:hover {
             color: var(--primary);
         }
-        /* ======== 히어로 ======== */
+
+        /* 히어로 섹션 */
         .hero {
             padding: 160px 0 100px;
             background: linear-gradient(135deg, #8e2de2, #4a00e0);
@@ -150,6 +242,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -160,6 +253,7 @@
             background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='2' height='2' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
             opacity: 0.4;
         }
+
         .hero-content {
             position: relative;
             z-index: 1;
@@ -167,33 +261,39 @@
             margin: 0 auto;
             text-align: center;
         }
+
         .hero h1 {
             font-size: 40px;
             margin-bottom: 20px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
+
         .hero p {
             font-size: 20px;
             margin-bottom: 40px;
             text-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
         }
+
         .pixel-character {
             position: absolute;
             width: 60px;
             height: 60px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M2 1h4v1h1v4h-1v1H2V6H1V2h1z'/%3E%3Cpath fill='%23ff5722' d='M3 2h2v1h-2z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M2 1h4v1h1v4h-1v1H2V6H1V2h1z'/%3E%3Cpath fill='%23ff5722' d='M3 2h2v1h1v2H5v1H3V5H2V3h1z'/%3E%3C/svg%3E");
             background-size: contain;
             animation: float 6s infinite ease-in-out;
             opacity: 0.8;
         }
+
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
-        /* ======== 워크숍 소개 ======== */
+
+        /* 워크숍 소개 섹션 */
         .workshop {
             background-color: var(--bg-light);
         }
+
         .game-preview {
             display: flex;
             align-items: center;
@@ -202,6 +302,7 @@
             gap: 30px;
             justify-content: center;
         }
+
         .game-screenshot {
             width: 320px;
             height: 240px;
@@ -211,6 +312,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             position: relative;
         }
+
         .pixel-grid {
             width: 100%;
             height: 100%;
@@ -219,39 +321,45 @@
             top: 0;
             left: 0;
         }
+
         .pixel-ufo {
             position: absolute;
             width: 48px;
             height: 24px;
             top: 80px;
             left: 140px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath fill='%237C4DFF' d='M4 0h8v1h2v1h1v2h-1v1h-2v1H4V6H2V5H1V3h1V2h2z'/%3E%3Cpath fill='%23fff' d='M6 2h4v2H6z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 8'%3E%3Cpath fill='%237C4DFF' d='M4 0h8v1h2v1h1v2h-1v1h-2v1H4V6H2V5H1V3h1V2h2z'/%3E%3Cpath fill='%23fff' d='M6 2h4v1h-4z'/%3E%3Cpath fill='%23FF5722' d='M3 6h2v2H3zM11 6h2v2h-2z'/%3E%3C/svg%3E");
             background-size: contain;
             animation: hover 2s infinite ease-in-out;
         }
+
         @keyframes hover {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
         .pixel-obstacle {
             position: absolute;
             width: 24px;
             height: 24px;
             bottom: 40px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23FF5722' d='M0 0h8v8H0z'/%3E%3Cpath fill='%23ffb74d' d='M1 1h2v2H1zM5 5h2v2H5z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23FF5722' d='M0 0h8v8H0z'/%3E%3Cpath fill='%23ffb74d' d='M1 1h2v2H1zM5 1h2v2H5zM1 5h2v2H1zM5 5h2v2H5z'/%3E%3C/svg%3E");
             background-size: contain;
             animation: slide 4s infinite linear;
         }
+
         @keyframes slide {
             0% { left: 320px; }
             100% { left: -24px; }
         }
+
         .workshop-flow {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             margin: 40px 0;
         }
+
         .flow-item {
             flex: 1;
             min-width: 180px;
@@ -263,18 +371,22 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
+
         .flow-item:hover {
             transform: translateY(-5px);
         }
+
         .flow-icon {
             font-size: 36px;
             margin-bottom: 15px;
             color: var(--primary);
         }
-        /* ======== 강사 소개 ======== */
+
+        /* 강사 소개 섹션 */
         .instructor {
             background-color: white;
         }
+
         .instructor-profile {
             display: flex;
             align-items: center;
@@ -283,6 +395,7 @@
             margin: 30px 0;
             justify-content: center;
         }
+
         .instructor-img {
             width: 180px;
             height: 180px;
@@ -294,29 +407,35 @@
             justify-content: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .instructor-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+
+        .instructor-img svg {
+            width: 80%;
+            height: 80%;
+            fill: var(--gray);
         }
+
         .instructor-info {
             flex: 1;
             min-width: 280px;
         }
+
         .instructor-name {
             font-size: 24px;
             margin-bottom: 10px;
             color: var(--primary);
         }
+
         .instructor-title {
             font-size: 18px;
             color: var(--gray);
             margin-bottom: 15px;
         }
-        /* ======== 리뷰 섹션 ======== */
+
+        /* 리뷰 섹션 */
         .reviews {
             background-color: var(--bg-light);
         }
+
         .review-cards {
             display: flex;
             overflow-x: auto;
@@ -326,9 +445,11 @@
             scrollbar-width: none;
             gap: 20px;
         }
+
         .review-cards::-webkit-scrollbar {
             display: none;
         }
+
         .review-card {
             flex: 0 0 300px;
             padding: 25px;
@@ -336,14 +457,17 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
         .review-text {
             font-style: italic;
             margin-bottom: 20px;
         }
+
         .reviewer {
             display: flex;
             align-items: center;
         }
+
         .reviewer-img {
             width: 40px;
             height: 40px;
@@ -351,9 +475,11 @@
             background-color: #e9ecef;
             margin-right: 15px;
         }
+
         .reviewer-name {
             font-weight: 600;
         }
+
         .review-game {
             width: 100%;
             height: 150px;
@@ -363,16 +489,19 @@
             position: relative;
             overflow: hidden;
         }
-        /* ======== 일정 및 신청 섹션 ======== */
+
+        /* 일정 및 신청 섹션 */
         .schedule {
             background-color: white;
         }
+
         .schedule-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
+
         .schedule-card {
             padding: 25px;
             background-color: var(--bg-light);
@@ -380,23 +509,27 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border-left: 4px solid var(--primary);
         }
+
         .schedule-date {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 5px;
             color: var(--primary);
         }
+
         .schedule-time {
             color: var(--gray);
-            margin-bottom: 8px;
-        }
-        .schedule-details {
+            margin-bottom
+
+           .schedule-details {
             margin-bottom: 15px;
         }
+
         .schedule-price {
             font-weight: 600;
             color: var(--secondary);
         }
+
         .signup-form {
             max-width: 500px;
             margin: 40px auto;
@@ -405,14 +538,17 @@
             border-radius: 8px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
         }
+
         .form-control {
             width: 100%;
             padding: 12px;
@@ -421,10 +557,12 @@
             font-size: 16px;
             transition: border-color 0.3s ease;
         }
+
         .form-control:focus {
             border-color: var(--primary);
             outline: none;
         }
+
         select.form-control {
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%236c757d' d='M0 3l6 6 6-6z'/%3E%3C/svg%3E");
@@ -432,21 +570,25 @@
             background-position: right 12px center;
             padding-right: 30px;
         }
-        /* ======== FAQ 섹션 ======== */
+
+        /* FAQ 섹션 */
         .faq {
             background-color: var(--bg-light);
         }
+
         .accordion {
             width: 100%;
             max-width: 800px;
             margin: 30px auto;
         }
+
         .accordion-item {
             margin-bottom: 15px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
+
         .accordion-header {
             padding: 20px;
             background-color: white;
@@ -457,93 +599,113 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .accordion-header::after {
             content: '+';
             font-size: 24px;
             transition: transform 0.3s ease;
         }
+
         .accordion-header.active::after {
             transform: rotate(45deg);
         }
+
         .accordion-content {
             max-height: 0;
             overflow: hidden;
             background-color: white;
             transition: max-height 0.3s ease;
         }
+
         .accordion-content-inner {
             padding: 0 20px 20px;
         }
-        /* ======== CTA 섹션 ======== */
+
+        /* CTA 섹션 */
         .cta {
             background: linear-gradient(135deg, #8e2de2, #4a00e0);
             color: white;
             text-align: center;
             padding: 60px 0;
         }
+
         .cta h2 {
             font-size: 32px;
             margin-bottom: 30px;
         }
-        /* ======== 푸터 ======== */
+
+        /* 푸터 섹션 */
         footer {
             background-color: #212529;
             color: white;
             padding: 40px 0 20px;
         }
+
         .footer-content {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+
         .footer-logo {
             color: white;
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 15px;
         }
+
         .footer-logo span {
             color: var(--secondary);
         }
+
         .footer-section {
             flex: 1;
             min-width: 200px;
             margin-bottom: 20px;
             padding-right: 20px;
         }
+
         .footer-heading {
             font-size: 18px;
             margin-bottom: 15px;
             color: var(--secondary);
         }
+
         .footer-links {
             list-style: none;
         }
+
         .footer-links li {
             margin-bottom: 10px;
         }
+
         .footer-links a {
             color: #adb5bd;
             text-decoration: none;
             transition: color 0.3s ease;
         }
+
         .footer-links a:hover {
             color: white;
         }
+
         .social-links {
             display: flex;
             gap: 15px;
             margin-top: 15px;
         }
+
         .social-links a {
             color: white;
             font-size: 20px;
             transition: color 0.3s ease;
         }
+
         .social-links a:hover {
             color: var(--secondary);
         }
+
         .footer-bottom {
             border-top: 1px solid #343a40;
             padding-top: 20px;
@@ -551,53 +713,80 @@
             color: #6c757d;
             font-size: 14px;
         }
-        /* ======= 반응형 디자인 ======= */
+
+        /* 반응형 디자인 */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 36px; }
-            .hero p { font-size: 18px; }
-            .header-container { flex-direction: column; text-align: center; }
-            nav ul { margin-top: 15px; justify-content: center; }
-            nav ul li { margin: 0 10px; }
-            .section-title { font-size: 28px; }
-            .instructor-profile { text-align: center; }
-            .form-group { padding: 0 10px; }
-            .review-card { width: 95% !important; max-width: none !important; }
-            .review-cards { margin-left: 10px !important; margin-right: 10px !important; }
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 10px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .instructor-profile {
+                text-align: center;
+            }
+
+            .form-group {
+                padding: 0 10px;
+            }
         }
-        /* ======= 애니메이션 효과 ======= */
+
+        /* 추가 애니메이션 효과 */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .fade-in {
             animation: fadeIn 0.8s ease forwards;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes meteor-fall {
-            0% { top: 0%; }
-            100% { top: 100%; }
         }
     </style>
 </head>
 <body>
     <!-- 헤더 영역 -->
     <header>
+
+
         <div class="container header-container">
             <div class="logo">Mini<span>Game</span> Workshop</div>
-            <!-- 햄버거 메뉴 아이콘 -->
-            <div id="hamburger-menu" style="position: fixed; top: 16px; right: 16px; z-index: 1001; cursor: pointer; width: 36px; height: 36px;">
-                <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
-                <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
-                <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
-            </div>
-            <!-- 팝업 메뉴 -->
-            <div id="popup-menu" style="display: none; position: fixed; top: 60px; right: 16px; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1002;">
-                <a href="board.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">게시판</a>
-                <a href="devlog.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333;">개발일지</a>
-            </div>
+
+
+
+        <!-- 햄버거 메뉴 아이콘 -->
+<div id="hamburger-menu" style="position: fixed; top: 16px; right: 16px; z-index: 1001; cursor: pointer; width: 36px; height: 36px;">
+  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+  <div style="width: 100%; height: 5px; background: #333; margin: 6px 0; border-radius: 2px;"></div>
+</div>
+
+<!-- 팝업 메뉴 -->
+<div id="popup-menu" style="display: none; position: fixed; top: 60px; right: 16px; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1002;">
+
+  <a href="board.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;">게시판</a>
+  <a href="devlog.html" style="display: block; padding: 16px 32px; text-decoration: none; color: #333;">개발일지</a>
+</div>
+            
+       
         </div>
     </header>
 
@@ -607,7 +796,7 @@
             <h1>나만의 미니게임, <br>직접 만들고 <br>배포해보세요!</h1>
             <p>도트 그래픽 UFO 점프 게임을 웹에 띄우는 워크숍</p>
             <div>
-                <a href="arcade.html" class="btn btn-primary" id="play-btn">play</a>
+              <a href="arcade.html" class="btn btn-primary" id="play-btn">play</a>
             </div>
         </div>
         <!-- 배경 효과로 픽셀 캐릭터 추가 -->
@@ -616,25 +805,24 @@
         <div class="pixel-character" style="top: 40%; left: 75%; animation-delay: 2s;"></div>
         <div class="pixel-character" style="top: 80%; left: 25%; animation-delay: 3s;"></div>
     </section>
-
-    <!-- Gumroad 어필리에이트 배너 시작 -->
-    <section class="affiliate-banner-section">
-        <div class="affiliate-banner-container">
-            <a href="https://gumroad.com/a/10257555/kwXIG" target="_blank" rel="noopener" class="gumroad-affiliate-banner">
-                <img src="https://github.com/sansolPark/mini_game_workshop/raw/main/ad_cat.png" alt="Gumroad" class="gumroad-banner-img" />
-                <div class="gumroad-banner-text">
-                    <span>미사일 커맨더 게임으로 배우는 실전 유니티 C#!</span>
-                    <strong>초보도 쉽게 따라하는 전자책, 지금 확인하세요 →</strong>
-                </div>
-            </a>
-        </div>
-    </section>
-    <!-- Gumroad 어필리에이트 배너 끝 -->
-    
+<!-- Gumroad 어필리에이트 배너 시작 -->
+<section class="affiliate-banner-section">
+  <div class="affiliate-banner-container">
+    <a href="https://gumroad.com/a/10257555/kwXIG" target="_blank" rel="noopener" class="gumroad-affiliate-banner">
+      <img src="https://github.com/sansolPark/mini_game_workshop/raw/main/ad_cat.png" alt="Gumroad" class="gumroad-banner-img" />
+      <div class="gumroad-banner-text">
+       <span>미사일 커맨더 게임으로 배우는 실전 유니티 C#!</span>
+<strong>초보도 쉽게 따라하는 전자책, 지금 확인하세요 →</strong>
+      </div>
+    </a>
+  </div>
+</section>
+<!-- Gumroad 어필리에이트 배너 끝 -->
     <!-- 워크숍 소개 섹션 -->
     <section class="workshop" id="workshop">
         <div class="container">
             <h2 class="section-title text-center">어떤 게임을 만들게 될까요?</h2>
+            
             <div class="game-preview">
                 <div class="game-screenshot">
                     <div class="pixel-grid"></div>
@@ -652,8 +840,10 @@
             </div>
         </div>
     </section>
-    <section class="workshop-learn" id="workshop-learn" style="background-color: #fff;">
-        <div class="container">
+
+   <section class="workshop-learn" id="workshop-learn" style="background-color: #fff;">
+    <div class="container">
+ 
             <h2 class="section-title text-center">워크숍에서 이런 것들을 배워요</h2>
             <div class="workshop-flow">
                 <div class="flow-item">
@@ -679,24 +869,28 @@
             </div>
         </div>
     </section>
-    <!-- 동영상 소개 섹션 -->
+    
+    <!-- 동영상 소개 섹션 시작 -->
     <section class="video-section" id="video" style="background-color: #f8f9fa;">
       <div class="container" style="text-align: center;">
         <h2 class="section-title">워크숍 미리보기</h2>
         <div style="max-width: 700px; margin: 0 auto;">
           <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.1);">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/NknUeoKuJ7k?si=1DEYU1ExFxiJrA61" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/NknUeoKuJ7k?si=1DEYU1ExFxiJrA61" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position: absolute; top:0; left:0; width:100%; height:100%;"></iframe>
           </div>
         </div>
       </div>
     </section>
+    <!-- 동영상 소개 섹션 끝 -->
+    
     <!-- 강사 소개 섹션 -->
     <section class="instructor" id="instructor">
         <div class="container">
             <h2 class="section-title text-center">함께하는 멘토</h2>
+            
             <div class="instructor-profile">
                 <div class="instructor-img">
-                    <img src="icon.png" alt="강사 프로필 이미지">
+                    <img src="icon.png" alt="강사 프로필 이미지" style="width: 100%; height: 100%;">
                 </div>
                 <div class="instructor-info">
                     <h3 class="instructor-name">박산솔</h3>
@@ -708,106 +902,203 @@
             </div>
         </div>
     </section>
-    <!-- 미니게임 리스트 섹션 -->
-    <section class="reviews" id="reviews" style="padding-bottom: 40px;">
-      <div class="container">
+
+    <!-- 미니게임임 소개 섹션 -->
+  <section class="reviews" id="reviews" style="padding-bottom: 40px; position: center;">
+    <div class="container">
         <h2 class="section-title text-center">미니 게임 리스트</h2>
+
         <div class="review-cards-wrapper" style="overflow: hidden;">
-          <div class="review-cards" style="display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin-left: 20px; margin-right: 20px;">
-            <div class="review-card" style="flex: 0 0 auto; width: 80%; max-width: 300px; margin-right: 20px; scroll-snap-align: start;">
-              <a href="https://ufo-game-orcin.vercel.app/" style="text-decoration: none; color: inherit;">
-                <div class="review-game" style="position: relative; overflow: hidden; background-color: #333; border-radius: 6px;">
-                  <div class="pixel-grid" style="width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'2\' height=\'2\' fill=\'%23ffffff\' fill-opacity=\'0.3\'/%3E%3C/svg%3E');"></div>
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; text-align: center;">
-                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">우주선 탈출 게임 with ChatGPT</div>
-                    <div style="font-size: 12px;">간단하게 점프!</div>
-                  </div>
-                  <div style="position: absolute; width: 32px; height: 32px; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 8 8\'%3E%3Cpath fill=\'%23fff\' d=\'M2 1h4v1h1v4h-1v1H2V6H1V2h1z\'/%3E%3Cpath fill=\'%23ff5722\' d=\'M3 2h2v1h-2z\'/%3E%3C/svg%3E'); background-size: contain; left: 10%; bottom: 18%;"></div>
-                  <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 2px; bottom: 20%; left: 70%; animation: slide 3s infinite linear;"></div>
+            <div class="review-cards" style="display: flex; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; margin-left: 20px; margin-right: 20px; justify-content: center;">
+
+                <div class="review-card" style="flex: 0 0 auto; width: 80%; max-width: 300px; margin-right: 20px; scroll-snap-align: start;">
+                    <a href="https://ufo-game-orcin.vercel.app/" style="text-decoration: none; color: inherit;">
+                        <div class="review-game" style="position: relative; overflow: hidden; background-color: #333; border-radius: 6px;">
+                            <div class="pixel-grid" style="width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'2\' height=\'2\' fill=\'%23ffffff\' fill-opacity=\'0.3\'/%3E%3C/svg%3E'); position: absolute; top: 0; left: 0;"></div>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; text-align: center;">
+                                <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">우주선 탈출 게임 with ChatGPT</div>
+                                <div style="font-size: 12px;">간단하게 점프!</div>
+                            </div>
+                            <div style="position: absolute; width: 32px; height: 32px; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 8 8\'%3E%3Cpath fill=\'%237C4DFF\' d=\'M2 1h4v1h1v4h-1v1H2V6H1V2h1z\'/%3E%3Cpath fill=\'%23fff\' d=\'M3 2h2v1h1v2H5v1H3V5H2V3h1z\'/%3E%3C/svg%3E'); background-size: contain; top: 30%; left: 10%; animation: float 2s infinite ease-in-out;"></div>
+                            <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 2px; bottom: 20%; left: 70%; animation: slide 3s infinite linear;"></div>
+                        </div>
+                        <div style="padding-top: 10px; font-size: 12px; text-align: center;">간단하게 점프해서 우주선을 탈출하는 게임</div>
+                    </a>
                 </div>
-                <div style="padding-top: 10px; font-size: 12px; text-align: center;">간단하게 점프해서 우주선을 탈출하는 게임</div>
-              </a>
+
+            
+          <div class="review-card" style="flex: 0 0 auto; width: 80%; max-width: 300px; margin-right: 20px; scroll-snap-align: start;">
+    <a href="https://sansolpark.github.io/ufo_game_meteo/" style="text-decoration: none; color: inherit;">
+        <div class="review-game" style="position: relative; overflow: hidden; background-color: #333; border-radius: 6px;">
+            <div class="pixel-grid" style="width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'2\' height=\'2\' fill=\'%23ffffff\' fill-opacity=\'0.3\'/%3E%3C/svg%3E'); position: absolute; top: 0; left: 0;"></div>
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; text-align: center;">
+                <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">UFO 운석 피하기 게임 with Claude</div>
+                <div style="font-size: 12px;">운석을 피하세요!</div>
             </div>
-            <div class="review-card" style="flex: 0 0 auto; width: 80%; max-width: 300px; margin-right: 20px; scroll-snap-align: start;">
-              <a href="https://sansolpark.github.io/ufo_game_meteo/" style="text-decoration: none; color: inherit;">
-                <div class="review-game" style="position: relative; overflow: hidden; background-color: #333; border-radius: 6px;">
-                  <div class="pixel-grid" style="width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'2\' height=\'2\' fill=\'%23ffffff\' fill-opacity=\'0.3\'/%3E%3C/svg%3E');"></div>
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; text-align: center;">
-                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">UFO 운석 피하기 게임 with Claude</div>
-                    <div style="font-size: 12px;">운석을 피하세요!</div>
-                  </div>
-                  <div style="position: absolute; width: 48px; height: 24px; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 16 8\'%3E%3Cpath fill=\'%237C4DFF\' d=\'M4 0h8v1h2v1h1v2h-1v1h-2v1H4V6H2V5H1V3h1V2h2z\'/%3E%3Cpath fill=\'%23fff\' d=\'M6 2h4v2H6z\'/%3E%3C/svg%3E'); background-size: contain; top: 50%; left: 40%;"></div>
-                  <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 4px; top: 0%; left: 20%; animation: meteor-fall 1.5s infinite linear;"></div>
-                  <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 4px; top: 5%; right: 20%; animation: meteor-fall 2s infinite linear 0.7s;"></div>
-                  <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 4px; top: 10%; left: 60%; animation: meteor-fall 1.8s infinite linear 0.3s;"></div>
-                </div>
-                <div style="padding-top: 10px; font-size: 12px; text-align: center;">UFO를 조종하여 떨어지는 운석을 피하는 게임</div>
-              </a>
-            </div>
-            <div class="review-card" style="flex: 0 0 auto; width: 80%; max-width: 300px; margin-right: 20px; scroll-snap-align: start;">
-              <a href="https://sansolpark.github.io/Jellyball_game/" style="text-decoration: none; color: inherit;">
-                <div class="review-game" style="position: relative; overflow: hidden; background-color: #333; border-radius: 6px;">
-                  <div class="pixel-grid" style="width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'2\' height=\'2\' fill=\'%23ffffff\' fill-opacity=\'0.3\'/%3E%3C/svg%3E');"></div>
-                  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; text-align: center;">
-                    <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">젤리 점프 게임 with Gemini</div>
-                    <div style="font-size: 12px;">폴짝폴짝!</div>
-                  </div>
-                  <div style="position: absolute; width: 24px; height: 24px; background-color: #FFC107; border-radius: 50%; bottom: 20%; left: 20%; animation: bounce 1.5s infinite ease-in-out;"></div>
-                </div>
-                <div style="padding-top: 10px; font-size: 12px; text-align: center;">귀여운 젤리 캐릭터로 점프하는 게임</div>
-              </a>
-            </div>
-          </div>
+            <div style="position: absolute; width: 48px; height: 24px; background-image: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 16 8\'%3E%3Cpath fill=\'%237C4DFF\' d=\'M4 0h8v1h2v1h1v2h-1v1h-2v1H4V6H2V5H1V3h1V2h2z\'/%3E%3Cpath fill=\'%23fff\' d=\'M6 2h4v1h-4z\'/%3E%3Cpath fill=\'%23FF5722\' d=\'M3 6h2v2H3zM11 6h2v2h-2z\'/%3E%3C/svg%3E'); background-size: contain; bottom: 15%; left: 30%; animation: ufo-evade 1.8s infinite ease-in-out;"></div>
+            <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 4px; top: 0%; left: 20%; animation: meteor-fall 1.5s infinite linear;"></div>
+            <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 4px; top: 5%; right: 20%; animation: meteor-fall 2s infinite linear 0.7s;"></div>
+            <div style="position: absolute; width: 16px; height: 16px; background-color: #FF5722; border-radius: 4px; top: 10%; left: 60%; animation: meteor-fall 1.8s infinite linear 0.3s;"></div>
         </div>
-      </div>
-    </section>
-    <!-- 툴팁 요소 및 스크립트 추가 (body 끝나기 전에!) -->
-    <div id="play-tooltip" style="display: none; position: absolute; background: #222; color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 6px; pointer-events: none; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">Don't forget to play</div>
+        <div style="padding-top: 10px; font-size: 12px; text-align: center;">UFO를 조종하여 떨어지는 운석을 피하는 게임</div>
+    </a>
+</div>   
+
+                <div class="review-card" style="flex: 0 0 auto; width: 80%; max-width: 300px; margin-right: 20px; scroll-snap-align: start;">
+                    <a href="https://sansolpark.github.io/Jellyball_game/" style="text-decoration: none; color: inherit;">
+                        <div class="review-game" style="position: relative; overflow: hidden; background-color: #333; border-radius: 6px;">
+                            <div class="pixel-grid" style="width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Crect width=\'2\' height=\'2\' fill=\'%23ffffff\' fill-opacity=\'0.3\'/%3E%3C/svg%3E'); position: absolute; top: 0; left: 0;"></div>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 14px; text-align: center;">
+                                <div style="font-size: 16px; font-weight: bold; margin-bottom: 5px;">젤리 점프 게임 with Gemini</div>
+                                <div style="font-size: 12px;">폴짝폴짝!</div>
+                            </div>
+                            <div style="position: absolute; width: 24px; height: 24px; background-color: #FFC107; border-radius: 50%; bottom: 20%; left: 20%; animation: bounce 1.5s infinite ease-in-out;"></div>
+                        </div>
+                        <div style="padding-top: 10px; font-size: 12px; text-align: center;">귀여운 젤리 캐릭터로 점프하는 게임</div>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .review-card {
+                width: 95% !important;
+                max-width: none !important;
+            }
+            .review-cards {
+                margin-left: 10px !important;
+                margin-right: 10px !important;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes slide-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes slide-right {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes hover {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes meteor-fall {
+    0% { transform: translateY(-20px); opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0.8; }
+}
+@keyframes ufo-evade {
+    0%, 100% {
+        transform: translateX(0); /* 초기 및 최종 위치 (중앙) */
+    }
+    50% {
+        transform: translateX(15px); /* 중간 지점 (오른쪽으로 이동) */
+    }
+}
+    </style>
+
     <script>
-    // 햄버거 메뉴 토글 기능 (외부 클릭 시 닫히도록)
-    (function() {
-        const hamburger = document.getElementById('hamburger-menu');
-        const popupMenu = document.getElementById('popup-menu');
-        if (hamburger && popupMenu) {
-            hamburger.addEventListener('click', function(e) {
-                popupMenu.style.display = (popupMenu.style.display === 'block') ? 'none' : 'block';
-                e.stopPropagation();
-            });
-            document.addEventListener('click', function(e) {
-                if (!popupMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                    popupMenu.style.display = 'none';
+
+const hamburger = document.getElementById('hamburger-menu');
+const popupMenu = document.getElementById('popup-menu');
+
+hamburger.addEventListener('click', function(e) {
+  e.stopPropagation();
+  popupMenu.style.display = popupMenu.style.display === 'block' ? 'none' : 'block';
+});
+
+document.addEventListener('click', function(e) {
+  if (popupMenu.style.display === 'block') {
+    popupMenu.style.display = 'none';
+  }
+});
+
+popupMenu.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewCardsWrapper = document.querySelector('.review-cards-wrapper');
+            const reviewCards = document.querySelector('.review-cards');
+            let scrollAmount = reviewCards.scrollWidth - reviewCardsWrapper.offsetWidth; // 초기 스크롤 위치를 오른쪽 끝으로 설정
+            const scrollSpeed = 1;
+
+            function autoScroll() {
+                scrollAmount -= scrollSpeed; // 스크롤 방향을 오른쪽에서 왼쪽으로 변경
+                reviewCardsWrapper.scrollLeft = scrollAmount;
+
+                // 왼쪽 끝까지 스크롤되면 오른쪽 끝으로 되돌리기
+                if (scrollAmount <= 0) {
+                    scrollAmount = reviewCards.scrollWidth - reviewCardsWrapper.offsetWidth;
                 }
+
+                requestAnimationFrame(autoScroll);
+            }
+
+            reviewCardsWrapper.addEventListener('mouseenter', () => {
+                cancelAnimationFrame(autoScroll);
             });
-        }
-    })();
 
-    // play 버튼 툴팁 기능
-    (function() {
-        const playBtn = document.getElementById('play-btn');
-        const tooltip = document.getElementById('play-tooltip');
-
-        function showTooltip() {
-            tooltip.style.display = 'block';
-            const rect = playBtn.getBoundingClientRect();
-            tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
-            tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
-        }
-
-        function hideTooltip() {
-            tooltip.style.display = 'none';
-        }
-
-        if (playBtn && tooltip) {
-            playBtn.addEventListener('mouseenter', showTooltip);
-            playBtn.addEventListener('mousemove', showTooltip);
-            playBtn.addEventListener('mouseleave', hideTooltip);
-            // 모바일 터치 대응
-            playBtn.addEventListener('touchstart', function(e) {
-                showTooltip();
-                setTimeout(hideTooltip, 2000);
+            reviewCardsWrapper.addEventListener('mouseleave', () => {
+                requestAnimationFrame(autoScroll);
             });
-        }
-    })();
+
+            // 초기 자동 스크롤 시작
+            requestAnimationFrame(autoScroll);
+        });
     </script>
+</section>
+    <!-- 워크숍에서 만든 게임 리스트 보러가기 챕터 추가 -->
+<section id="game-list-section" class="text-center" style="margin-top:50px;">
+  <div class="container">
+    <h2 class="section-title text-center">워크숍에서 만든 게임 리스트 보러가기</h2>
+    <a href="https://docs.google.com/spreadsheets/d/1Pq_KqY8aW7C1Dq5n1cblArUQOCEAx_DRxdz8I1iwnWE/edit?usp=sharing" target="_blank" class="btn btn-primary">
+      게임 리스트 보기
+    </a>
+  </div>
+</section>
+<!-- 툴팁 요소 및 스크립트 추가 (body 끝나기 전에!) -->
+<div id="play-tooltip" style="display: none; position: absolute; background: #222; color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 6px; pointer-events: none; z-index: 9999; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">Don't forget to play</div>
+<script>
+  const playBtn = document.getElementById('play-btn');
+  const tooltip = document.getElementById('play-tooltip');
+
+  if (playBtn && tooltip) {
+    playBtn.addEventListener('mouseenter', function(e) {
+      tooltip.style.display = 'block';
+      const rect = playBtn.getBoundingClientRect();
+      tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
+      tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
+    });
+
+    playBtn.addEventListener('mousemove', function(e) {
+      const rect = playBtn.getBoundingClientRect();
+      tooltip.style.left = (rect.left + window.scrollX + rect.width/2 - tooltip.offsetWidth/2) + 'px';
+      tooltip.style.top = (rect.top + window.scrollY - tooltip.offsetHeight - 10) + 'px';
+    });
+
+    playBtn.addEventListener('mouseleave', function() {
+      tooltip.style.display = 'none';
+    });
+  }
+</script>
 </body>
 </html>
+
