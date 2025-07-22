@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>도트 오락실</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 모바일 대응 -->
   <style>
     body {
       background: linear-gradient(135deg, #191970 0%, #2d004d 100%);
@@ -13,6 +14,8 @@
       align-items: center;
       justify-content: flex-start;
       font-family: 'Press Start 2P', 'Pretendard', 'Noto Sans KR', sans-serif;
+      box-sizing: border-box;
+      padding: 0 0 40px 0;
     }
     .arcade-title {
       color: #fff600;
@@ -26,25 +29,33 @@
     .arcade-cabinet {
       background: #222;
       border: 10px solid #ff0080;
-      border-radius: 24px 24px 48px 48px/40px 40px 80px 80px;
-      width: 420px;
+      border-radius: 32px 32px 56px 56px/48px 48px 120px 120px;
+      width: 360px;
+      max-width: 98vw;
       margin: 0 auto;
       box-shadow: 0 8px 48px #000a, 0 1.5px 0 #fff inset;
       position: relative;
       padding-bottom: 36px;
       margin-bottom: 40px;
+      box-sizing: border-box;
     }
     .arcade-screen {
       width: 320px;
-      height: 220px;
+      height: 480px; /* 세로로 긴 모니터 */
+      max-width: 90vw;
+      max-height: 80vh;
       background: #222c;
       border: 6px solid #fff;
-      border-radius: 12px;
+      border-radius: 16px;
       margin: 36px auto 0 auto;
       box-shadow: 0 4px 32px #00ffff99, 0 0 12px #fff8;
       overflow: hidden;
       position: relative;
       z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: width 0.3s, height 0.3s;
     }
     .arcade-screen iframe {
       display: block;
@@ -54,9 +65,7 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      /* 반응형/잘림 방지 */
       object-fit: cover;
-      /* 혹시라도 내부에서 강제 스크롤이 생길 때 */
       max-width: 100%;
       max-height: 100%;
       min-width: 100%;
@@ -86,20 +95,6 @@
     .arcade-btn.yellow {
       background: radial-gradient(circle, #ffff00 60%, #c6b800 100%);
     }
-    /* 도트 아트 느낌 데코 */
-    /* 아래 pixel-border 부분은 필요시 삭제 또는 주석처리하세요 */
-    /* .pixel-border {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 3;
-    }
-    .pixel-border svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    } */
     /* 오락실 배경 네온 조명 효과 */
     .arcade-neon {
       position: fixed;
@@ -108,6 +103,23 @@
       pointer-events: none;
       background: radial-gradient(circle at 50% 60%, #00ffff33 0%, #191970 70%);
       mix-blend-mode: screen;
+    }
+    @media (max-width: 480px) {
+      .arcade-cabinet {
+        width: 98vw;
+        padding-bottom: 8vw;
+        border-width: 5px;
+        border-radius: 8vw 8vw 15vw 15vw/12vw 12vw 30vw 30vw;
+      }
+      .arcade-screen {
+        width: 94vw;
+        height: 64vw;
+        min-height: 360px;
+        max-height: 80vh;
+        margin-top: 18px;
+        border-width: 3px;
+        border-radius: 4vw;
+      }
     }
   </style>
   <!-- 픽셀 폰트 사용 (구글 폰트) -->
@@ -130,7 +142,7 @@
       <div class="arcade-btn blue"></div>
       <div class="arcade-btn yellow"></div>
     </div>
-    <!-- 필요시 아래 네모난 박스(테두리)도 삭제 -->
+    <!-- 네모 테두리(장식)는 필요시 주석처리/삭제 -->
     <!--
     <div class="pixel-border">
       <svg viewBox="0 0 420 350">
